@@ -1,0 +1,112 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio */ ?>
+<?php $_option = $block->getOption();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
+?>
+<?php $_selections  = $_option->getSelections(); ?>
+<?php $_default     = $_option->getDefaultSelection(); ?>
+<?php list($_defaultQty, $_canChangeQty) = $block->getDefaultValues(); ?>
+
+<div class="field option <?php echo ($_option->getRequired()) ? ' required': ''; ?>">
+    <label class="label">
+        <span><?php echo $block->escapeHtml($_option->getTitle()) ?></span>
+    </label>
+    <div class="control">
+        <div class="nested options-list">
+            <?php if ($block->showSingle()): ?>
+                <?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selections[0]) ?>
+                <input type="hidden"
+                    class="bundle-option-<?php echo (int)$_option->getId() ?>  product bundle option"
+                    name="bundle_option[<?php echo (int)$_option->getId() ?>]"
+                    value="<?php echo (int)$_selections[0]->getSelectionId() ?>"
+                    id="bundle-option-<?php echo (int)$_option->getId() ?>-<?php echo (int)$_selections[0]->getSelectionId() ?>"
+                    checked="checked"
+                />
+                <?php $image_url = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(50,50)->getUrl();
+                $image_url_medium = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(300,300)->getUrl();
+                ?>
+                 <img alt="<?php echo $image_url_medium ;?>" src="<?php echo $image_url ;?>" />
+                 <p class="large"></p>
+            <?php else:?>
+                <?php if (!$_option->getRequired()): ?>
+                    <div class="field choice">
+                        <input type="radio"
+                               class="radio product bundle option"
+                               id="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>"
+                               name="bundle_option[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                               data-selector="bundle_option[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                               <?php echo ($_default && $_default->isSalable())?'':' checked="checked" ' ?>
+                               value=""/>
+                        <label class="label" for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>">
+                            <span><?php /* @escapeNotVerified */ echo __('None') ?></span>
+                        </label>
+                    </div>
+                <?php endif; ?>
+                <?php foreach ($_selections as $_selection): ?>
+                    <div class="field choice">
+                        <input type="radio"
+                               class="radio product bundle option change-container-classname"
+                               id="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>"
+                               <?php if ($_option->getRequired()) echo 'data-validate="{\'validate-one-required-by-name\':true}"'?>
+                               name="bundle_option[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                               data-selector="bundle_option[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                               <?php if ($block->isSelected($_selection)) echo ' checked="checked"' ?>
+                               <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>
+                               value="<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>"/>
+                        <label class="label"
+                               for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>">
+                            <span><?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selection) ?></span>
+                        </label>
+                        <?php $image_url = $imageHelper->init($_selection, 'product_page_image_small')->setImageFile($_selection->getFile())->resize(50,50)->getUrl();
+                        $image_url_medium = $imageHelper->init($_selection, 'product_page_image_small')->setImageFile($_selection->getFile())->resize(300,300)->getUrl();
+                        ?>
+                    </div>
+                    <img alt="<?php echo $image_url_medium ;?>" src="<?php echo $image_url ;?>" />
+                    <p class="large"></p>
+                <?php endforeach; ?>
+                <div id="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-container"></div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+require(['jquery'],function($){
+    $(document).ready(function() {        
+        $(".options-list img").hover(function(e){
+            $(".large").css("top",(e.pageY+2)+"px")
+                             .css("left",(e.pageX+2)+"px")                    
+                             .html("<img src="+ $(this).attr("alt") +" alt='Large Image'/><br/>")
+                             .fadeIn("slow");
+        }, function(){
+            $(".large").fadeOut("fast");
+        });        
+        
+    });
+});
+</script>
+
+<style>
+img {
+    border: none;
+}
+.options-list img {
+    cursor: pointer;    
+}
+.large {
+    display: none;
+    position: absolute;    
+    color: #FFFFFF;
+    background: #333333;    
+    padding: 5px;
+}
+</style>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Xumulus_AdvanceBundles::css/advancebundles.css"/>
+    </head>
+
+    <body>
+    	<referenceBlock name="bundle.summary" template="Xumulus_AdvanceBundles::summary.phtml" />
+        <referenceBlock name="product.info.bundle.options" template="Xumulus_AdvanceBundles::catalog/product/view/type/bundle/options.phtml" />
+       <referenceBlock name="product.info.bundle.options">
+                <block class="Xumulus\AdvanceBundles\Block\Catalog\Product\View\Type\Bundle\Option\Select" name="product.info.bundle.options.select" as="select"/>
+                <block class="Xumulus\AdvanceBundles\Block\Catalog\Product\View\Type\Bundle\Option\Multi" name="product.info.bundle.options.multi" as="multi"/>
+                <block class="Xumulus\AdvanceBundles\Block\Catalog\Product\View\Type\Bundle\Option\Radio" name="product.info.bundle.options.radio" as="radio"/>
+                <block class="Xumulus\AdvanceBundles\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox" name="product.info.bundle.options.checkbox" as="checkbox"/>
+        </referenceBlock>
+
+    	<move element="product.info.addtocart.bundle" destination="bundle.summary" after="product.price.render.bundle.customization"/>
+
+        <referenceBlock name="render.product.prices" remove="true" />
+        <referenceBlock name="product.info.media.image" remove="true" />      
+        <referenceBlock name="product.info.extrahint.qtyincrements" remove="true" />   
+        <referenceBlock name="bundle.back.button" remove="true" />
+        <referenceBlock name="product.info.review" remove="true" />
+        <referenceBlock name="product.info.stock.sku" remove="true" />
+    	<referenceBlock name="product.info.mailto" remove="true" />
+        <referenceBlock name="product.info.addto" remove="true" />
+    	<referenceBlock name="customize.button" remove="true" />
+    	<referenceBlock name="product.info.details" remove="true" />
+    	<container name="product.info.extrahint" remove="true" />
+    </body>
+</page>

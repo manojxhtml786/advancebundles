@@ -1,0 +1,19 @@
+#maincontent .bundle-options-container .bundle-options-wrapper, .bundle-options-container .product-options-wrapper{
+	float: right;
+}
+
+#maincontent .bundle-options-container .block-bundle-summary{
+	float: left;
+}
+
+#maincontent .bundle-options-container .product-add-form{
+	display: block;
+}
+
+/*#maincontent .bundle-options-container .nested .field.qty:last-child{
+	display: none;
+}
+
+#maincontent #bundleSummary .box-tocart .field{
+	display: none;
+}*/
