@@ -38,3 +38,48 @@ $helper = $this->helper('Magento\Catalog\Helper\Output');
         <p class="empty"><?php /* @escapeNotVerified */ echo __('No options of this product are available.') ?></p>
     <?php endif; ?>
 <?php endif;?>
+
+
+<script type="text/javascript">
+  
+  require(['jquery','Magento_Ui/js/modal/modal'],function($, modal){
+
+
+        $(document).on('click', '.opemmodalpopup',  function(){
+
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                footer: false,
+            };
+
+            var modalForm = $(this).attr('data-form');
+            var popup = modal(options, $(modalForm));
+            $(modalForm).modal("openModal");
+        });
+
+        $(document).on('click', '.addItem',  function(){
+            var modalForm1 = $(this).attr('data-bundle-option');
+            $('#'+modalForm1).trigger('click');
+            this.closeModal();
+        });
+
+        var acc = document.getElementsByClassName("label");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function(){
+                this.classList.toggle("active","slow");
+                var control = this.nextElementSibling;
+                if (control.style.display === "block") {
+                    control.style.display = "none";
+                } else {
+                    control.style.display = "block";
+                }
+            }
+        }
+
+  });
+
+</script>

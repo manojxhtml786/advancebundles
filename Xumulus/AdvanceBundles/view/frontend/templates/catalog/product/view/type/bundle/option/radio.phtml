@@ -1,12 +1,3 @@
-<?php
-/**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-// @codingStandardsIgnoreFile
-
-?>
 <?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio */ ?>
 <?php $_option = $block->getOption();
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -64,7 +55,7 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
                                value="<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>"/>
                         <label class="label"
                                for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>">
-                            <span><?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selection) ?></span>
+                            <span><a class="action opemmodalpopup" href="#" data-form="#modal-form-<?php echo $_selection->getSelectionId();?>" title="Modal"><?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selection) ?></a></span>
                         </label>
                         <?php $image_url = $imageHelper->init($_selection, 'product_page_image_small')->setImageFile($_selection->getFile())->resize(50,50)->getUrl();
                         $image_url_medium = $imageHelper->init($_selection, 'product_page_image_small')->setImageFile($_selection->getFile())->resize(300,300)->getUrl();
@@ -72,6 +63,15 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
                     </div>
                     <img alt="<?php echo $image_url_medium ;?>" src="<?php echo $image_url ;?>" />
                     <p class="large"></p>
+                    <div class="modal-form" id="modal-form-<?php echo $_selection->getSelectionId();?>" style="display: none;">
+                    <?php
+                        $product = $objectManager->create('Magento\Catalog\Model\Product')->load($_selection->getId());
+                    ?>
+                        <div class="productName"><h3><?php echo $_selection->getName();?></h3></div>
+                        <div class="productImage"><img src="<?php echo $image_url_medium ;?>" /></div>
+                        <div class="productDesc"><?php echo $product->getDescription();?></div>
+                        <div class="addbutton"><input type="button" class="addItem" data-bundle-option="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>" name="addItem" value="Add this Item" data-role="action"/></div>
+                    </div>
                 <?php endforeach; ?>
                 <div id="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-container"></div>
             <?php endif; ?>
@@ -79,34 +79,4 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
     </div>
 </div>
 
-<script type="text/javascript">
-require(['jquery'],function($){
-    $(document).ready(function() {        
-        $(".options-list img").hover(function(e){
-            $(".large").css("top",(e.pageY+2)+"px")
-                             .css("left",(e.pageX+2)+"px")                    
-                             .html("<img src="+ $(this).attr("alt") +" alt='Large Image'/><br/>")
-                             .fadeIn("slow");
-        }, function(){
-            $(".large").fadeOut("fast");
-        });        
-        
-    });
-});
-</script>
 
-<style>
-img {
-    border: none;
-}
-.options-list img {
-    cursor: pointer;    
-}
-.large {
-    display: none;
-    position: absolute;    
-    color: #FFFFFF;
-    background: #333333;    
-    padding: 5px;
-}
-</style>

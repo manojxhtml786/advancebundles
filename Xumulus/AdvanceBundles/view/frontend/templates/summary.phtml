@@ -1,18 +1,9 @@
 <?php
-/**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-// @codingStandardsIgnoreFile
-
-?>
-
-<?php
-    //echo get_class($block);exit;
     $_product = $block->getProduct();
 ?>
+
 <?php if ($_product->isSaleable() && $block->hasOptions()): ?>
+
 <div id="bundleSummary"
      class="block-bundle-summary"
      data-mage-init='{"sticky":{"container": ".product-add-form"}}'>
@@ -52,3 +43,4 @@
     }
 </script>
 <?php endif; ?>
+

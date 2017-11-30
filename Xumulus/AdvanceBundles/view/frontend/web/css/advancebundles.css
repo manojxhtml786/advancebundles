@@ -10,10 +10,13 @@
 	display: block;
 }
 
-/*#maincontent .bundle-options-container .nested .field.qty:last-child{
-	display: none;
+ .options-list img {
+    cursor: pointer;    
 }
-
-#maincontent #bundleSummary .box-tocart .field{
-	display: none;
-}*/
+.large {
+    display: none;
+    position: absolute;    
+    color: #FFFFFF;
+    background: #333333;    
+    padding: 5px;
+}

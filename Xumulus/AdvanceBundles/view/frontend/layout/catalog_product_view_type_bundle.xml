@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
 	<head>
         <css src="Xumulus_AdvanceBundles::css/advancebundles.css"/>
+        <link src="Xumulus_AdvanceBundles::js/popup.js"/>
     </head>
-
+    
     <body>
     	<referenceBlock name="bundle.summary" template="Xumulus_AdvanceBundles::summary.phtml" />
         <referenceBlock name="product.info.bundle.options" template="Xumulus_AdvanceBundles::catalog/product/view/type/bundle/options.phtml" />
@@ -28,5 +30,6 @@
     	<referenceBlock name="customize.button" remove="true" />
     	<referenceBlock name="product.info.details" remove="true" />
     	<container name="product.info.extrahint" remove="true" />
+
     </body>
 </page>
