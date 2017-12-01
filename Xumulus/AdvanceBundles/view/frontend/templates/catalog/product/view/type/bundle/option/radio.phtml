@@ -1,3 +1,12 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
 <?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio */ ?>
 <?php $_option = $block->getOption();
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -8,13 +17,19 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
 <?php list($_defaultQty, $_canChangeQty) = $block->getDefaultValues(); ?>
 
 <div class="field option <?php echo ($_option->getRequired()) ? ' required': ''; ?>">
-    <label class="label">
+    <h3 class="label bundle-toggle">
         <span><?php echo $block->escapeHtml($_option->getTitle()) ?></span>
-    </label>
+    </h3>
     <div class="control">
         <div class="nested options-list">
             <?php if ($block->showSingle()): ?>
+        	<div class="accodion-items">
+             <a class="action opemmodalpopup" href="#" data-pro-name="<?php echo $_selections[0]->getName();?>" data-form="#modal-form-<?php echo $_selections[0]->getSelectionId();?>">            
                 <?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selections[0]) ?>
+             </a>
+              <?php $image_url = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(50,50)->getUrl();
+              $image_url_medium = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(300,300)->getUrl();
+              ?>
                 <input type="hidden"
                     class="bundle-option-<?php echo (int)$_option->getId() ?>  product bundle option"
                     name="bundle_option[<?php echo (int)$_option->getId() ?>]"
@@ -22,14 +37,22 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
                     id="bundle-option-<?php echo (int)$_option->getId() ?>-<?php echo (int)$_selections[0]->getSelectionId() ?>"
                     checked="checked"
                 />
-                <?php $image_url = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(50,50)->getUrl();
-                $image_url_medium = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(300,300)->getUrl();
-                ?>
+                <div class="modal-form" id="modal-form-<?php echo $_selections[0]->getSelectionId();?>" style="display: none;">
+                  <?php
+                      $product = $objectManager->create('Magento\Catalog\Model\Product')->load($_selections[0]->getId());
+                  ?>
+                    <div class="productImage"><img src="<?php echo $image_url_medium ;?>" /></div>
+                    <div class="productDesc"><?php echo $product->getDescription();?></div>
+                </div>
+                <div class="image-thumb">                
                  <img alt="<?php echo $image_url_medium ;?>" src="<?php echo $image_url ;?>" />
-                 <p class="large"></p>
+                 <div class="large"></div>
+				</div>           
+                </div>      
             <?php else:?>
                 <?php if (!$_option->getRequired()): ?>
                     <div class="field choice">
+                    <div class="accodion-items none-option">
                         <input type="radio"
                                class="radio product bundle option"
                                id="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>"
@@ -40,9 +63,18 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
                         <label class="label" for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>">
                             <span><?php /* @escapeNotVerified */ echo __('None') ?></span>
                         </label>
+                        </div>
                     </div>
                 <?php endif; ?>
                 <?php foreach ($_selections as $_selection): ?>
+                <div class="accodion-items">
+                        <?php $image_url = $imageHelper->init($_selection, 'product_page_image_small')->setImageFile($_selection->getFile())->resize(50,50)->getUrl();
+                        $image_url_medium = $imageHelper->init($_selection, 'product_page_image_small')->setImageFile($_selection->getFile())->resize(300,300)->getUrl();
+                        ?>
+                <div class="image-thumb">
+	                    <img alt="<?php echo $image_url_medium ;?>" src="<?php echo $image_url ;?>" />
+	                    <div class="large"></div>
+                    </div>
                     <div class="field choice">
                         <input type="radio"
                                class="radio product bundle option change-container-classname"
@@ -55,23 +87,19 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
                                value="<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>"/>
                         <label class="label"
                                for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>">
-                            <span><a class="action opemmodalpopup" href="#" data-form="#modal-form-<?php echo $_selection->getSelectionId();?>" title="Modal"><?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selection) ?></a></span>
+                            <span><a class="action opemmodalpopup" data-pro-name="<?php echo $_selection->getName();?>" href="#" data-form="#modal-form-<?php echo $_selection->getSelectionId();?>" title="Modal"><?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selection) ?></a></span>
                         </label>
-                        <?php $image_url = $imageHelper->init($_selection, 'product_page_image_small')->setImageFile($_selection->getFile())->resize(50,50)->getUrl();
-                        $image_url_medium = $imageHelper->init($_selection, 'product_page_image_small')->setImageFile($_selection->getFile())->resize(300,300)->getUrl();
-                        ?>
                     </div>
-                    <img alt="<?php echo $image_url_medium ;?>" src="<?php echo $image_url ;?>" />
-                    <p class="large"></p>
+                    
                     <div class="modal-form" id="modal-form-<?php echo $_selection->getSelectionId();?>" style="display: none;">
                     <?php
                         $product = $objectManager->create('Magento\Catalog\Model\Product')->load($_selection->getId());
                     ?>
-                        <div class="productName"><h3><?php echo $_selection->getName();?></h3></div>
                         <div class="productImage"><img src="<?php echo $image_url_medium ;?>" /></div>
                         <div class="productDesc"><?php echo $product->getDescription();?></div>
                         <div class="addbutton"><input type="button" class="addItem" data-bundle-option="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>" name="addItem" value="Add this Item" data-role="action"/></div>
                     </div>
+                </div>    
                 <?php endforeach; ?>
                 <div id="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-container"></div>
             <?php endif; ?>

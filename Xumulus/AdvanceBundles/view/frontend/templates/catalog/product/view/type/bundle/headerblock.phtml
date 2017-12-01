@@ -1,0 +1,11 @@
+<?php
+	$data = $block->getProduct();
+?>
+<div class="header-main">
+	<div class="header-title">
+		<?php echo "Welcome to the ".$data->getData('name')." Customization Page";?>
+	</div>
+	<div class="header-content">
+		<p><?php echo "This ".$data->getData('name')." you have selected may now be customized. You can add any options you choose from the categories below and checkout anytime."?></p>
+	</div>
+</div>

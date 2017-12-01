@@ -1,0 +1,13 @@
+<?php
+	$product =  $block->getProduct();
+	$imgUrl = $block->getProductImageUrl();
+?>
+
+<h1><?php echo $product->getData('name');?></h1>
+
+<div class="bundle-product-image">
+	<img  src="<?php echo $imgUrl ;?>" />
+</div>
+
+
+<p><?php echo $product->getData('description');?></p>

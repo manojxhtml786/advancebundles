@@ -1,15 +1,26 @@
 <?xml version="1.0"?>
 
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-
 	<head>
         <css src="Xumulus_AdvanceBundles::css/advancebundles.css"/>
         <link src="Xumulus_AdvanceBundles::js/popup.js"/>
     </head>
-    
+
     <body>
+
+    	<referenceContainer name="content">
+            <block class="Xumulus\AdvanceBundles\Block\Catalog\Product\View\Type\Bundle\Header" name="headerblock" template="Xumulus_AdvanceBundles::catalog/product/view/type/bundle/headerblock.phtml" before="-"/>
+        </referenceContainer>
+
+    	<referenceContainer name="product.info.price">
+            <block class="Xumulus\AdvanceBundles\Block\Catalog\Product\View\Type\Bundle\Header" name="productinfo" template="Xumulus_AdvanceBundles::catalog/product/view/type/bundle/productinfo.phtml" before="-"/>
+        </referenceContainer>
+
+
     	<referenceBlock name="bundle.summary" template="Xumulus_AdvanceBundles::summary.phtml" />
+
         <referenceBlock name="product.info.bundle.options" template="Xumulus_AdvanceBundles::catalog/product/view/type/bundle/options.phtml" />
+
        <referenceBlock name="product.info.bundle.options">
                 <block class="Xumulus\AdvanceBundles\Block\Catalog\Product\View\Type\Bundle\Option\Select" name="product.info.bundle.options.select" as="select"/>
                 <block class="Xumulus\AdvanceBundles\Block\Catalog\Product\View\Type\Bundle\Option\Multi" name="product.info.bundle.options.multi" as="multi"/>
@@ -18,8 +29,10 @@
         </referenceBlock>
 
     	<move element="product.info.addtocart.bundle" destination="bundle.summary" after="product.price.render.bundle.customization"/>
-
-        <referenceBlock name="render.product.prices" remove="true" />
+    	
+    	<move element="product.info.price" destination="bundle.product.options.wrapper" before="-"/>
+    	
+        <referenceBlock name="page.main.title" remove="true" />
         <referenceBlock name="product.info.media.image" remove="true" />      
         <referenceBlock name="product.info.extrahint.qtyincrements" remove="true" />   
         <referenceBlock name="bundle.back.button" remove="true" />
@@ -30,6 +43,5 @@
     	<referenceBlock name="customize.button" remove="true" />
     	<referenceBlock name="product.info.details" remove="true" />
     	<container name="product.info.extrahint" remove="true" />
-
     </body>
 </page>
