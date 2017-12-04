@@ -25,6 +25,13 @@ class Header extends \Magento\Framework\View\Element\Template
         return $image_url_medium;
     }
 
+    public function getLargeImageUrl()
+    {
+        $imgUrl = $this->_objectManager->get('\Magento\Catalog\Helper\Image');
+        $image_url_large = $imgUrl->init($this->getProduct(), 'product_page_image_small')->setImageFile($this->getProduct()->getFile())->resize(500,500)->getUrl();
+        return $image_url_large;
+    }
+
     public function getProduct()
     {        
         return $this->_registry->registry('current_product');

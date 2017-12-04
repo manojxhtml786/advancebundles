@@ -1,13 +1,14 @@
 <?php
 	$product =  $block->getProduct();
 	$imgUrl = $block->getProductImageUrl();
+	$lrgimgUrl = $block->getLargeImageUrl();
 ?>
 
 <h1><?php echo $product->getData('name');?></h1>
 
 <div class="bundle-product-image">
-	<img  src="<?php echo $imgUrl ;?>" />
+	<img alt="<?php echo $lrgimgUrl ;?>" src="<?php echo $imgUrl ;?>" />
+	<div class="large"></div>
 </div>
-
 
 <p><?php echo $product->getData('description');?></p>

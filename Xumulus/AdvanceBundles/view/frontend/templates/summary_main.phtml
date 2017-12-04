@@ -4,16 +4,15 @@
 ?>
 
 <?php if ($_product->isSaleable() && $block->hasOptions()): ?>
-<div id="bundleSummary"
-     class="block-bundle-summary"
-     data-mage-init='{"sticky":{"container": ".product-add-form"}}'>
-    <div class="content">
-        <div class="bundle-summary">
-            <strong class="subtitle"><?php /* @escapeNotVerified */ echo __('Summary'); ?></strong>
-            <div id="bundle-summary" data-container="product-summary">
+<div class="field option">
+        <h3 class="label bundle-toggle">
+            <span><?php /* @escapeNotVerified */ echo __($_product->getName().' Summary'); ?></span>
+        </h3>
+        <div class="control" id="bundle-summary" data-container="product-summary">
+            <div class="nested options-list">
                 <ul data-mage-init='{"productSummary": []}' class="bundle items"></ul>
                 <script data-template="bundle-summary" type="text/x-magento-template">
-                    <li>
+                    <li class="accodion-items">
                         <strong class="label 123"><%- data._label_ %>:</strong>
                         <div data-container="options"></div>
                     </li>
@@ -22,12 +21,10 @@
                     <div><?php /* @escapeNotVerified */ echo __('%1 x %2', '<%- data._quantity_ %>', '<%- data._label_ %>') ?>
                          <div class="close-link"><a class="close remove-product-from-cart" data-id="bundle_option[<%- data._id_ %>][<%- data._option_ %>]" href="javascript:void(0)">Close</a></div>
                     </div>
-
                 </script>
+            <?php echo $block->getChildHtml('', true);?>
             </div>
         </div>
-        <?php echo $block->getChildHtml('', true);?>
-    </div>
 </div>
 <script type="text/x-magento-init">
     {
@@ -45,20 +42,30 @@
         }
     }
 </script>
-
-<?php endif; ?>
-
 <script type="text/javascript">
-require(['jquery','Xumulus_AdvanceBundles/js/jquery.sticky'],function($,sticky){
-     $(document).ready(function(){
-     $("#bundleSummary").sticky({topSpacing:0});
-  });
+     require(['jquery'],function($){
 
-  $(document).on('click', '.remove-product-from-cart',  function(){
+        var acc = document.getElementsByClassName("label");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function(){
+                this.classList.toggle("active","slow");
+                var control = this.nextElementSibling;
+                if (control.style.display === "block") {
+                    control.style.display = "none";
+                } else {
+                    control.style.display = "block";
+                }
+            }
+        }
+
+        $(document).on('click', '.remove-product-from-cart',  function(){
             var modalData = $(this).attr('data-id');
             alert(modalData);
             $("input[name='"+modalData+"']").click();
         });
-});
-</script>
 
+  });
+</script>
+<?php endif; ?>

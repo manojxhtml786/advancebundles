@@ -24,12 +24,19 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
         <div class="nested options-list">
             <?php if ($block->showSingle()): ?>
         	<div class="accodion-items">
+              <?php $image_url = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(50,50)->getUrl();
+              $image_url_medium = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(300,300)->getUrl();
+              ?>   
+                  
+                <div class="image-thumb">                
+                 	<img alt="<?php echo $image_url_medium ;?>" src="<?php echo $image_url ;?>" />
+                 	<div class="large"></div>
+				</div>   
+                 <div class="choice">                        
              <a class="action opemmodalpopup" href="#" data-pro-name="<?php echo $_selections[0]->getName();?>" data-form="#modal-form-<?php echo $_selections[0]->getSelectionId();?>">            
                 <?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selections[0]) ?>
              </a>
-              <?php $image_url = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(50,50)->getUrl();
-              $image_url_medium = $imageHelper->init($_selections[0], 'product_page_image_small')->setImageFile($_selections[0]->getFile())->resize(300,300)->getUrl();
-              ?>
+
                 <input type="hidden"
                     class="bundle-option-<?php echo (int)$_option->getId() ?>  product bundle option"
                     name="bundle_option[<?php echo (int)$_option->getId() ?>]"
@@ -44,11 +51,8 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
                     <div class="productImage"><img src="<?php echo $image_url_medium ;?>" /></div>
                     <div class="productDesc"><?php echo $product->getDescription();?></div>
                 </div>
-                <div class="image-thumb">                
-                 <img alt="<?php echo $image_url_medium ;?>" src="<?php echo $image_url ;?>" />
-                 <div class="large"></div>
-				</div>           
-                </div>      
+                </div>     
+                </div> 
             <?php else:?>
                 <?php if (!$_option->getRequired()): ?>
                     <div class="field choice">
