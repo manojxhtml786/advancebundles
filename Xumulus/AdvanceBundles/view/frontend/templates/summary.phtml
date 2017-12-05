@@ -1,6 +1,8 @@
 <?php
 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $_product = $block->getProduct();
+    $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
 ?>
 
 <?php if ($_product->isSaleable() && $block->hasOptions()): ?>
@@ -19,9 +21,11 @@
                     </li>
                 </script>
                 <script data-template="bundle-option" type="text/x-magento-template">
-                    <div><?php /* @escapeNotVerified */ echo __('%1 x %2', '<%- data._quantity_ %>', '<%- data._label_ %>') ?>
-                         <div class="close-link"><a class="close remove-product-from-cart" data-id="bundle_option[<%- data._id_ %>][<%- data._option_ %>]" href="javascript:void(0)">Close</a></div>
+                    <div class="smry-option"><?php /* @escapeNotVerified */ echo __('%1 x %2', '<%- data._quantity_ %>', '<%- data._label_ %>') ?>
+                        <div class="price-option"><?php echo  __('%1', '<%- data._price_ %>'); ?></div>
+                        <div class="close-link"><a class="close remove-product-from-cart" data-id="bundle_option[<%- data._id_ %>][<%- data._option_ %>]" href="javascript:void(0)"></a></div>
                     </div>
+
 
                 </script>
             </div>
@@ -50,13 +54,28 @@
 
 <script type="text/javascript">
 require(['jquery','Xumulus_AdvanceBundles/js/jquery.sticky'],function($,sticky){
-     $(document).ready(function(){
-     $("#bundleSummary").sticky({topSpacing:0});
-  });
+    
+    $(document).ready(function(){
+        $("#bundleSummary").sticky({topSpacing:0});
+
+
+    });
+
+    // $(window).scroll(function(){
+
+    //     var elementPos = $('#bundleSummary').offset().top;
+    //     var documentHeight = $(document).height();
+    //     var distanceFromBottom = documentHeight - elementPos;
+
+    //     if(distanceFromBottom < 700){
+            
+    //         $("#bundleSummary").unstick({topSpacing:0});       
+    //     }
+
+    // });
 
   $(document).on('click', '.remove-product-from-cart',  function(){
             var modalData = $(this).attr('data-id');
-            alert(modalData);
             $("input[name='"+modalData+"']").click();
         });
 });

@@ -102,6 +102,7 @@ $imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
                         <div class="productImage"><img src="<?php echo $image_url_medium ;?>" /></div>
                         <div class="productDesc"><?php echo $product->getDescription();?></div>
                         <div class="addbutton"><input type="button" class="addItem" data-bundle-option="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>" name="addItem" value="Add this Item" data-role="action"/></div>
+                        <div class="itemAdded"><?php echo __('This item is added');?></div>
                     </div>
                 </div>    
                 <?php endforeach; ?>

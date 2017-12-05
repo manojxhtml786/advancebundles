@@ -55,9 +55,20 @@ $helper = $this->helper('Magento\Catalog\Helper\Output');
                 footer: false
             };
 
+            var checkBox = $(this).attr('data-check');
+            if($('#'+checkBox).prop('checked') == true){
+                $('.addbutton').hide();
+                $('.itemAdded').show();
+            }
+            else
+            {
+                $('.addbutton').show();
+                $('.itemAdded').hide();
+            }
             var modalForm = $(this).attr('data-form');
             var popup = modal(options, $(modalForm));
             $(modalForm).modal("openModal");
+
         });
 
         $(document).on('click', '.addItem',  function(){

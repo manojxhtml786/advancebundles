@@ -81,9 +81,42 @@
 .page-product-bundle .modal-inner-wrap .modal-content .productDesc ul li{list-style:outside none circle; }
 .page-product-bundle .modal-popup .modal-inner-wrap .modal-footer{padding:20px;border-top:1px solid #e5e5e5; }
 .bundle-options-container .product-add-form .center-summary{width: 100%;}
-
-
-
+.close-link a {background: rgba(0, 0, 0, 0) url("../images/close-btn.png") no-repeat scroll right center;  display: block; width: 20px;  height: 20px;}
+.close-link {  float: right;  width: auto;}
+.price-as-configured .price-wrapper .price {  font-size: 28px;  color: #1979c3;}
+.nested.options-list.btm-smry {  padding:15px;  box-sizing: border-box;}
+.block-bundle-summary .bundle.items > li {  border-bottom: 1px dashed #ccc;  padding-bottom: 8px;}
+.btm-smry .accodion-items {  padding: 10px 0;}
+.btm-smry .action.primary.tocart {  width: 100%;}
+.btm-smry .field .label {  float: left;}
+.btm-smry .field .control {  float: left;  margin-left: 25px;  width: auto!important;}
+.btm-smry .field.qty {  width: 100%;  display: inline-block;  float: left;}
+.bundle-options-container .nested .field.qty > .label {  padding-top: 4px;}
+.bundle-options-container .product-options-bottom {border-top: 0;}
+.bundle.items > li { position: relative;}
+.close-link {position: absolute; right: 0; top: 0;}
+.btm-smry .accodion-items {border-bottom: 1px solid #eee;  margin-bottom: 12px;  padding: 0 0 8px;}
+.btm-smry .accodion-items { border-top: 0;}
+.btm-smry .box-tocart { margin: 0;}
+.product-options-wrapper .fieldset .kit-smry h3.bundle-toggle::after {  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;}
+.smry-option {
+  position: relative;
+  margin-top: 3px;
+}
+.fieldset > .field:last-child, .fieldset > .fields > .field:last-child {
+  margin-bottom: 20px;
+}
+.product-options-wrapper .fieldset.fieldset-bundle-options {
+  margin-bottom: 0;
+}
+.modal-form .itemAdded {
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 25px;
+  text-align: left;
+  width: 60%;
+}
 
 @media only screen and (max-width: 1180px) {
 .is-sticky .block-bundle-summary{width:30%!important }	
