@@ -1,11 +1,17 @@
 {
-  "name": "xumulus/xumulus-advancebundles",
+  "name": "xumulus/module-advancebundles",
   "description": "A module that chnages the product view page of the bundle products",
   "type": "magento2-module",
   "version": "1.0.5",
   "license": [
     "OSL-3.0",
     "AFL-3.0"
+  ],
+   "repositories":[
+      {
+        "type": "composer",
+        "url": "https://dipakmagento@bitbucket.org/internalxumulus/xumulus-advanced-bundles.git"
+      }
   ],
   "require": {
     "php": "~5.5.0|~5.6.0|~7.0.0",
